@@ -1,0 +1,214 @@
+{
+ "events": [
+  {
+   "eventId": "1",
+   "eventTime": "2022-03-14T18:27:09.488924900Z",
+   "eventType": "WorkflowExecutionStarted",
+   "taskId": "4194304",
+   "workflowExecutionStartedEventAttributes": {
+    "workflowType": {
+     "name": "FederalCriminalSearch"
+    },
+    "parentWorkflowNamespace": "default",
+    "parentWorkflowExecution": {
+     "workflowId": "BackgroundCheck:smitty@temporal.io",
+     "runId": "9fb46c90-3bc2-478f-92ea-e03dc06a2872"
+    },
+    "parentInitiatedEventId": "25",
+    "taskQueue": {
+     "name": "background-checks-main",
+     "kind": "Normal"
+    },
+    "input": {
+     "payloads": [
+      {
+       "metadata": {
+        "encoding": "YmluYXJ5L2VuY3J5cHRlZA==",
+        "encryption-key-id": "c2VjcmV0"
+       },
+       "data": "XxGAn1DzM8lnfdTxC23P/OndT18N69zsL7JJOnYBbqUGjjzK5VhBf/irwm2iOw3rEbAaLTvxGBGpF63EEv2+77qA0fPDcgmp7JZfXlthU7zfgH9E4g3CghMn9++McqVcEYYQewEPbFioHJ/mCPFMn1FJitjFLjTzB8DUz9cxMT+MeiZg3Mm97+/ty6YPL0hi+AdgIVXRFkgnHGhGCMJ8/Qe9WvtOzF6JxEBZFRQ="
+      }
+     ]
+    },
+    "workflowExecutionTimeout": "0s",
+    "workflowRunTimeout": "0s",
+    "workflowTaskTimeout": "10s",
+    "originalExecutionRunId": "db7d68c4-a5d9-4b5b-a124-e7c863982677",
+    "firstExecutionRunId": "db7d68c4-a5d9-4b5b-a124-e7c863982677",
+    "attempt": 1,
+    "firstWorkflowTaskBackoff": "0s",
+    "header": {
+
+    }
+   }
+  },
+  {
+   "eventId": "2",
+   "eventTime": "2022-03-14T18:27:09.501236300Z",
+   "eventType": "WorkflowTaskScheduled",
+   "taskId": "4194307",
+   "workflowTaskScheduledEventAttributes": {
+    "taskQueue": {
+     "name": "background-checks-main",
+     "kind": "Normal"
+    },
+    "startToCloseTimeout": "10s",
+    "attempt": 1
+   }
+  },
+  {
+   "eventId": "3",
+   "eventTime": "2022-03-14T18:27:09.510815500Z",
+   "eventType": "WorkflowTaskStarted",
+   "taskId": "4194310",
+   "workflowTaskStartedEventAttributes": {
+    "scheduledEventId": "2",
+    "identity": "1@589401de9861@",
+    "requestId": "1a34e007-ea02-4755-b108-06e0e3ad5931"
+   }
+  },
+  {
+   "eventId": "4",
+   "eventTime": "2022-03-14T18:27:09.529733400Z",
+   "eventType": "WorkflowTaskCompleted",
+   "taskId": "4194316",
+   "workflowTaskCompletedEventAttributes": {
+    "scheduledEventId": "2",
+    "startedEventId": "3",
+    "identity": "1@589401de9861@",
+    "binaryChecksum": "4f193c771bbf1143112b87d8470ed6d6"
+   }
+  },
+  {
+   "eventId": "5",
+   "eventTime": "2022-03-14T18:27:09.529796100Z",
+   "eventType": "ActivityTaskScheduled",
+   "taskId": "4194317",
+   "activityTaskScheduledEventAttributes": {
+    "activityId": "5",
+    "activityType": {
+     "name": "FederalCriminalSearch"
+    },
+    "taskQueue": {
+     "name": "background-checks-main",
+     "kind": "Normal"
+    },
+    "header": {
+
+    },
+    "input": {
+     "payloads": [
+      {
+       "metadata": {
+        "encoding": "YmluYXJ5L2VuY3J5cHRlZA==",
+        "encryption-key-id": "c2VjcmV0"
+       },
+       "data": "5ZekJOiS1QQJ1x5nBjiUtJuEEpSyf3FSpAojNTlhbwVQdonNh6USKs92ZzjvX0T6137erwR1T7PuHmBohw5m/xQ2savi5DBEpTNSBOpBgPkDAVUUGWIGLp8i8oGiNRz+A6pHJaeL5L08jDiHKaagWFt24cIuiq0820eoJQY="
+      }
+     ]
+    },
+    "scheduleToCloseTimeout": "0s",
+    "scheduleToStartTimeout": "0s",
+    "startToCloseTimeout": "60s",
+    "heartbeatTimeout": "0s",
+    "workflowTaskCompletedEventId": "4",
+    "retryPolicy": {
+     "initialInterval": "1s",
+     "backoffCoefficient": 2,
+     "maximumInterval": "100s"
+    }
+   }
+  },
+  {
+   "eventId": "6",
+   "eventTime": "2022-03-14T18:27:09.547236800Z",
+   "eventType": "ActivityTaskStarted",
+   "taskId": "4194328",
+   "activityTaskStartedEventAttributes": {
+    "scheduledEventId": "5",
+    "identity": "1@589401de9861@",
+    "requestId": "e7c610fd-5032-41ae-b876-b666f25dd508",
+    "attempt": 1
+   }
+  },
+  {
+   "eventId": "7",
+   "eventTime": "2022-03-14T18:27:09.558535200Z",
+   "eventType": "ActivityTaskCompleted",
+   "taskId": "4194329",
+   "activityTaskCompletedEventAttributes": {
+    "result": {
+     "payloads": [
+      {
+       "metadata": {
+        "encoding": "YmluYXJ5L2VuY3J5cHRlZA==",
+        "encryption-key-id": "c2VjcmV0"
+       },
+       "data": "MEqBiQQwhzzlzC+h7bh3zw7boBbCxiZ/XmgEEfCf58DO7HglGtN4LcndjZ8DkV5oDOjTbNRFRUU2oLCzeyH2F1fXU2F9BVBhdNrLZ9lw"
+      }
+     ]
+    },
+    "scheduledEventId": "5",
+    "startedEventId": "6",
+    "identity": "1@589401de9861@"
+   }
+  },
+  {
+   "eventId": "8",
+   "eventTime": "2022-03-14T18:27:09.558569900Z",
+   "eventType": "WorkflowTaskScheduled",
+   "taskId": "4194330",
+   "workflowTaskScheduledEventAttributes": {
+    "taskQueue": {
+     "name": "589401de9861:67550fe1-73a4-4afe-9e23-0a978ca76c37",
+     "kind": "Sticky"
+    },
+    "startToCloseTimeout": "10s",
+    "attempt": 1
+   }
+  },
+  {
+   "eventId": "9",
+   "eventTime": "2022-03-14T18:27:09.574218Z",
+   "eventType": "WorkflowTaskStarted",
+   "taskId": "4194339",
+   "workflowTaskStartedEventAttributes": {
+    "scheduledEventId": "8",
+    "identity": "1@589401de9861@",
+    "requestId": "668be3dc-107f-46db-980c-0dd5d7a381f1"
+   }
+  },
+  {
+   "eventId": "10",
+   "eventTime": "2022-03-14T18:27:09.599390400Z",
+   "eventType": "WorkflowTaskCompleted",
+   "taskId": "4194343",
+   "workflowTaskCompletedEventAttributes": {
+    "scheduledEventId": "8",
+    "startedEventId": "9",
+    "identity": "1@589401de9861@",
+    "binaryChecksum": "4f193c771bbf1143112b87d8470ed6d6"
+   }
+  },
+  {
+   "eventId": "11",
+   "eventTime": "2022-03-14T18:27:09.599453500Z",
+   "eventType": "WorkflowExecutionCompleted",
+   "taskId": "4194344",
+   "workflowExecutionCompletedEventAttributes": {
+    "result": {
+     "payloads": [
+      {
+       "metadata": {
+        "encoding": "YmluYXJ5L2VuY3J5cHRlZA==",
+        "encryption-key-id": "c2VjcmV0"
+       },
+       "data": "2KEMMbMk8ehJJmfB7OmvNtAi/GIN2NKdwXdDsTLMZ4M2cjz2NlRGXwpUiUeZKz+Zx6ax6QJJbRRuX1Nz4zeS/IKBVTDM33T9x6hzlBws"
+      }
+     ]
+    },
+    "workflowTaskCompletedEventId": "10"
+   }
+  }
+ ]
+}
