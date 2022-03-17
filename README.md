@@ -1,42 +1,21 @@
 # Temporal History Parser Tools
 
-TODO: 
-Sh - read single file
-
-
-
 ## Parser.sh
 Reads a folder with history files, emits CSV with tabular list of workflow histories per row, and Temporal Actions in columns
 
-
 ## Parser.py
-
+python3 history-parser.py -i history-examples/bgc-main-wf.json  
+Workflow Events:  59
+Workflow Duration:  0:00:59.380927
+Actions in Workflow:  7
+Payload Size (bytes):  5324
 
 
 ## TCTL Commands
 
 
-tctl workflow list --print_json >> ~/Development/temporalio/bgc_wf_list.json
+tctl workflow list --print_json >> 'list-output-file'
+
+tctl workflow show -w 'workflow_id' -r 'run_id' --output_filename 'output_file_name.json'
 
 
-tctl workflow show -w BackgroundCheck:joe123@test.com -r 41c1ebaf-9cf1-4037-b259-33e8fe996766 --output_filename ../joe123.json
-
-
-
-
-## Temporal Event Type Reference
-
-WorkflowExecutionSignaled
-
-WorkflowActivityTaskScheduled
-- activityTaskScheduledEventAttributes
-    - activityType
-        - name: (name)
-    - input
-        - payloads []
-
-ExternalWorkflowExecutionSignaled
-
-markerRecorded
-- markerRecordedEventAttributes
-    - markerName (Local Activity)
