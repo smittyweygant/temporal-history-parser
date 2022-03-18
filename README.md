@@ -4,12 +4,14 @@
 Reads a folder with history files, emits CSV with tabular list of workflow histories per row, and Temporal Actions in columns
 
 ## Parser.py
-    python3 history-parser.py -i history-examples/bgc-main-wf.json  
+    python3 history-parser.py -i history-examples/bgc-main-wf.json  -o 'path_to_output.csv'
 
     Workflow Events:  59
     Workflow Duration:  0:00:59.380927
     Actions in Workflow:  7
     Payload Size (bytes):  5324
+
+    Output to a formatted CSV file
 
 
 ## TCTL Commands

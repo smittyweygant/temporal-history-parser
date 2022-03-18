@@ -1,4 +1,4 @@
-import json, argparse, datetime
+import json, argparse, datetime, os
 from dateutil.parser import *
 
 class Event:
@@ -12,7 +12,9 @@ class Event:
 
 class Workflow:
     def __init__(self):
+        self.name = str
         self.events = []
+
 
     def addevent(self, event):
         # refactor below using match : case statement in Python 3.10+
@@ -82,9 +84,42 @@ class Workflow:
                 payloadsize = payloadsize + len(s.encode('utf-8'))
         return payloadsize
                 
-class Action:
-    actiontypes = ["ChildWorkflow", "Activity", "LocalActivity", "SignalWorkflow", "SignalExternalWorkflow", "Timer", "QuerySearchAttribute"]
-    actiondict = {"StartChildWorkflowExecutionInitiated" : "ChildWorkflow", "ActivityTaskStarted" : "Activity", '"markerName" : "LocalActivity"' : "LocalActivity", "WorkflowExecutionSignaled" : "SignalIntoWorkflow", "ExternalWorkflowExecutionSignaled" : "SignalExternalWorkflow", "TimerStarted" : "Timer", "UpsertWorkflowSearchAttributes" : "QuerySearchAttribute"}
+# class Action:
+#     actiontypes = ["ChildWorkflow", "Activity", "LocalActivity", "SignalWorkflow", "SignalExternalWorkflow", "Timer", "QuerySearchAttribute"]
+#     actiondict = {"StartChildWorkflowExecutionInitiated" : "ChildWorkflow", "ActivityTaskStarted" : "Activity", '"markerName" : "LocalActivity"' : "LocalActivity", "WorkflowExecutionSignaled" : "SignalIntoWorkflow", "ExternalWorkflowExecutionSignaled" : "SignalExternalWorkflow", "TimerStarted" : "Timer", "UpsertWorkflowSearchAttributes" : "QuerySearchAttribute"}
+
+def get_payload_from_event(event) -> str:
+        dataInputResult = ""
+        if "workflowExecutionStartedEventAttributes" in event:
+            dataInputResult = event["workflowExecutionStartedEventAttributes"]["input"]
+        elif "startChildWorkflowExecutionInitiatedEventAttributes" in event:
+            dataInputResult = event["startChildWorkflowExecutionInitiatedEventAttributes"]["input"]
+        elif "activityTaskScheduledEventAttributes" in event:
+            dataInputResult = event["activityTaskScheduledEventAttributes"]["input"]
+        elif "workflowExecutionSignaledEventAttributes" in event:
+            dataInputResult = event["workflowExecutionSignaledEventAttributes"]["input"]
+        elif "childWorkflowExecutionCompletedEventAttributes" in event:
+            dataInputResult = event["childWorkflowExecutionCompletedEventAttributes"]["result"]
+        elif "activityTaskCompletedEventAttributes" in event:
+            dataInputResult = event["activityTaskCompletedEventAttributes"]["result"]
+        elif "workflowExecutionCompletedEventAttributes" in event:
+            dataInputResult = event["workflowExecutionCompletedEventAttributes"]["result"]
+        else:
+            pass
+        return dataInputResult
+
+def load_file(filepath):
+    i = open(filepath, "r")
+    j = json.loads(i.read())
+
+    events = j["events"]
+    workflow.name = events[0]["workflowExecutionStartedEventAttributes"]["workflowType"]["name"]
+
+    for event in events:
+        dataInputResult = get_payload_from_event(event)
+        eventinst = Event(event["eventId"], event["eventType"], event["eventTime"], dataInputResult)
+        workflow.addevent(eventinst)
+
 
 def get_payload_from_event(event) -> str:
         dataInputResult = ""
@@ -108,32 +143,41 @@ def get_payload_from_event(event) -> str:
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-i", "--inputfile")
-# parser.add_argument("-o", "--outputfile")
+parser.add_argument("-o", "--outputfile")
 args = parser.parse_args()
 
-# example: inputfile = "inputfiles/smitty-bgc-wf.json"
+workflowlist = []
 
-inputfile = args.inputfile
-i = open(inputfile, "r")
+if os.path.isdir(args.inputfile):
+    for filespec in os.listdir(args.inputfile):
+        filepath = os.path.join(args.inputfile, filespec)
+        if os.path.isfile(filepath):
+            print("file: ", filepath)
+            workflow = Workflow()
+            load_file(filepath)
+            workflowlist.append(workflow)
+    
+elif os.path.isfile(args.inputfile):
+    workflow = Workflow()
+    load_file(args.inputfile)
+    workflowlist.append(workflow)
+    
+if args.outputfile:
+    outputfile = args.outputfile
+    o = open(outputfile, "w")
 
-# outputfile = args.outputfile
-# o = open(outputfile, "w")
+print("Items in List: ", len(workflowlist))
 
-j = json.loads(i.read())
+if (len(workflowlist) > 0):
+    o.write("name,events,duration,actions,payload_size\n")
 
-events = j["events"]
+    for workflow in workflowlist:
+        historydetails = workflow.name+","+str(workflow.eventCount())+","+str(workflow.getDuration())+","+str(workflow.actionCount())+","+str(workflow.payloadSize())+"\n"
+        o.write(historydetails)
 
-workflow = Workflow()
-
-for event in events:
-    dataInputResult = get_payload_from_event(event)
-    eventinst = Event(event["eventId"], event["eventType"], event["eventTime"], dataInputResult)
-    workflow.addevent(eventinst)
-
-print("Workflow Events: ", workflow.eventCount())
-
-print("Workflow Duration: ", workflow.getDuration())
-
-print ("Actions in Workflow: ", workflow.actionCount())
-
-print ("Payload Size (bytes): ", workflow.payloadSize())
+    # for workflow in workflowlist:
+    #     print("Workflow Name: ", workflow.name)
+    #     print("Workflow Events: ", workflow.eventCount())
+    #     print("Workflow Duration: ", workflow.getDuration())
+    #     print ("Actions in Workflow: ", workflow.actionCount())
+    #     print ("Payload Size (bytes): ", workflow.payloadSize())
