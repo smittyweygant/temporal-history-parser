@@ -1,17 +1,16 @@
 # Temporal History Parser Tools
 
-## Parser.sh
+## history-parser.sh
 Reads a folder with history files, emits CSV with tabular list of workflow histories per row, and Temporal Actions in columns
 
-## Parser.py
+## history-parser.py
+    # Parse one history file:
     python3 history-parser.py -i history-examples/bgc-main-wf.json  -o 'path_to_output.csv'
 
-    Workflow Events:  59
-    Workflow Duration:  0:00:59.380927
-    Actions in Workflow:  7
-    Payload Size (bytes):  5324
+    # Parse a folder of history files:
+    python3 history-parser.py -i history-examples/ -o outputfile.csv
 
-    Output to a formatted CSV file
+    Outputs Workflow name, # of events, duration, action count, and payload size to a formatted CSV file
 
 
 ## TCTL Commands

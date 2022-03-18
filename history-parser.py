@@ -152,7 +152,6 @@ if os.path.isdir(args.inputfile):
     for filespec in os.listdir(args.inputfile):
         filepath = os.path.join(args.inputfile, filespec)
         if os.path.isfile(filepath):
-            print("file: ", filepath)
             workflow = Workflow()
             load_file(filepath)
             workflowlist.append(workflow)
@@ -166,7 +165,6 @@ if args.outputfile:
     outputfile = args.outputfile
     o = open(outputfile, "w")
 
-print("Items in List: ", len(workflowlist))
 
 if (len(workflowlist) > 0):
     o.write("name,events,duration,actions,payload_size\n")
