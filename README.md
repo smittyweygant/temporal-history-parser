@@ -1,6 +1,7 @@
 # Temporal History Parser Tools
 
 ## history-parser.sh
+#
 Reads a folder with history files, emits CSV with tabular list of workflow histories per row, and Temporal Actions in columns
 
 ## history-parser.py

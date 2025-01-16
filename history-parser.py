@@ -120,27 +120,6 @@ def load_file(filepath):
         eventinst = Event(event["eventId"], event["eventType"], event["eventTime"], dataInputResult)
         workflow.addevent(eventinst)
 
-
-def get_payload_from_event(event) -> str:
-        dataInputResult = ""
-        if "workflowExecutionStartedEventAttributes" in event:
-            dataInputResult = event["workflowExecutionStartedEventAttributes"]["input"]
-        elif "startChildWorkflowExecutionInitiatedEventAttributes" in event:
-            dataInputResult = event["startChildWorkflowExecutionInitiatedEventAttributes"]["input"]
-        elif "activityTaskScheduledEventAttributes" in event:
-            dataInputResult = event["activityTaskScheduledEventAttributes"]["input"]
-        elif "workflowExecutionSignaledEventAttributes" in event:
-            dataInputResult = event["workflowExecutionSignaledEventAttributes"]["input"]
-        elif "childWorkflowExecutionCompletedEventAttributes" in event:
-            dataInputResult = event["childWorkflowExecutionCompletedEventAttributes"]["result"]
-        elif "activityTaskCompletedEventAttributes" in event:
-            dataInputResult = event["activityTaskCompletedEventAttributes"]["result"]
-        elif "workflowExecutionCompletedEventAttributes" in event:
-            dataInputResult = event["workflowExecutionCompletedEventAttributes"]["result"]
-        else:
-            pass
-        return dataInputResult
-
 parser = argparse.ArgumentParser()
 parser.add_argument("-i", "--inputfile")
 parser.add_argument("-o", "--outputfile")
@@ -169,13 +148,13 @@ if args.outputfile:
 if (len(workflowlist) > 0):
     o.write("name,events,duration,actions,payload_size\n")
 
-    for workflow in workflowlist:
-        historydetails = workflow.name+","+str(workflow.eventCount())+","+str(workflow.getDuration())+","+str(workflow.actionCount())+","+str(workflow.payloadSize())+"\n"
-        o.write(historydetails)
-
     # for workflow in workflowlist:
-    #     print("Workflow Name: ", workflow.name)
-    #     print("Workflow Events: ", workflow.eventCount())
-    #     print("Workflow Duration: ", workflow.getDuration())
-    #     print ("Actions in Workflow: ", workflow.actionCount())
-    #     print ("Payload Size (bytes): ", workflow.payloadSize())
+    #     historydetails = workflow.name+","+str(workflow.eventCount())+","+str(workflow.getDuration())+","+str(workflow.actionCount())+","+str(workflow.payloadSize())+"\n"
+    #     o.write(historydetails)
+
+    for workflow in workflowlist:
+        print("Workflow Name: ", workflow.name)
+        print("Workflow Events: ", workflow.eventCount())
+        print("Workflow Duration: ", workflow.getDuration())
+        print ("Actions in Workflow: ", workflow.actionCount())
+        print ("Payload Size (bytes): ", workflow.payloadSize())
